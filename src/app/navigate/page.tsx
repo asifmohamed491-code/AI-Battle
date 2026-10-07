@@ -8,6 +8,7 @@ import LocationList from "@/components/LocationList";
 import { RouteDirections, RouteSummary } from "@/components/ResultPanel";
 import SearchBar from "@/components/SearchBar";
 import StateMessage from "@/components/StateMessage";
+import { parseQuery } from "@/lib/parseQuery";
 import type {
   CampusLocation,
   CampusPath,
@@ -110,6 +111,10 @@ export default function NavigatePage() {
     ...locations.filter((location) => !popularSlugs.includes(location.slug)),
   ];
   const visibleLocations = showAllLocations ? popularLocations : popularLocations.slice(0, 4);
+  const parsedDestinationSlug = parseQuery(query, locations, source).to;
+  const parsedDestination = locations.find(
+    (location) => location.slug === parsedDestinationSlug,
+  );
   const visibleState =
     viewState === "success" ? undefined : viewState === "loading" ? "loading" : viewState;
 
@@ -156,6 +161,7 @@ export default function NavigatePage() {
               locations={locations}
               source={source}
               query={query}
+              destination={parsedDestination}
               loading={viewState === "loading"}
               onSourceChange={setSource}
               onQueryChange={setQuery}

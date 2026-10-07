@@ -57,6 +57,12 @@ select {
   grid-area: popular;
   max-height: 240px;
   overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.workspace-popular::-webkit-scrollbar {
+  display: none;
 }
 
 .direction-scroll {
