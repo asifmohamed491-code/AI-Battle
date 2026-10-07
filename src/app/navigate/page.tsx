@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import CampusMap from "@/components/CampusMap";
+import ShapeGrid from "@/components/ShapeGrid/ShapeGrid";
 import LocationList from "@/components/LocationList";
 import { RouteDirections, RouteSummary } from "@/components/ResultPanel";
 import SearchBar from "@/components/SearchBar";
@@ -113,8 +114,20 @@ export default function NavigatePage() {
     viewState === "success" ? undefined : viewState === "loading" ? "loading" : viewState;
 
   return (
-    <main className="min-h-screen bg-[#f5f7fb] text-slate-900">
-      <header className="border-b border-slate-200/80 bg-white">
+    <main className="relative isolate min-h-screen overflow-x-clip bg-[#120f17] text-slate-100">
+      <div className="wayfinder-grid-layer" aria-hidden="true">
+        <ShapeGrid
+          direction="diagonal"
+          speed={0.5}
+          borderColor="#2F293A"
+          squareSize={40}
+          hoverFillColor="#222222"
+          shape="square"
+          hoverTrailAmount={0}
+        />
+      </div>
+
+      <header className="relative z-10 border-b border-[#2f293a] bg-[#181818]">
         <div className="mx-auto flex max-w-[1440px] items-center justify-between px-4 py-4 sm:px-7 lg:px-10">
           <Link href="/" className="flex items-center gap-3" aria-label="Campus Wayfinder home">
             <span className="flex size-10 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-sm shadow-indigo-200">
@@ -124,21 +137,21 @@ export default function NavigatePage() {
               </svg>
             </span>
             <span>
-              <span className="block text-sm font-bold tracking-tight">Campus Wayfinder</span>
-              <span className="mt-0.5 block text-xs text-slate-500">Find your way around campus</span>
+              <span className="block text-sm font-bold tracking-tight text-white">Campus Wayfinder</span>
+              <span className="mt-0.5 block text-xs text-slate-400">Find your way around campus</span>
             </span>
           </Link>
-          <span className="hidden items-center gap-2 rounded-full border border-emerald-100 bg-emerald-50 px-3 py-1.5 text-xs font-medium text-emerald-700 sm:flex">
+          <span className="hidden items-center gap-2 rounded-full border border-emerald-900/70 bg-emerald-950/60 px-3 py-1.5 text-xs font-medium text-emerald-300 sm:flex">
             <span className="size-1.5 rounded-full bg-emerald-500" />
             Campus map available
           </span>
         </div>
       </header>
 
-      <div className="mx-auto max-w-[1760px] px-4 py-4 sm:px-6 lg:px-7">
+      <div className="relative z-10 mx-auto max-w-[1760px] px-4 py-4 sm:px-6 lg:px-7">
         <h1 className="sr-only">Campus Wayfinder navigation</h1>
         <div className="navigation-workspace">
-          <section className="workspace-search rounded-2xl border border-slate-200 bg-white p-3 shadow-sm sm:p-4">
+          <section className="workspace-search rounded-2xl border border-[#393442] bg-[#19171f]/95 p-3 shadow-lg shadow-black/10 sm:p-4">
             <SearchBar
               locations={locations}
               source={source}
@@ -170,8 +183,8 @@ export default function NavigatePage() {
             {viewState === "success" && result ? (
               <RouteDirections result={result} locations={locations} paths={paths} />
             ) : (
-              <div className="flex h-full min-h-28 items-center rounded-2xl border border-dashed border-slate-300 bg-white/70 p-4">
-                <p className="text-sm text-slate-500">
+              <div className="flex h-full min-h-28 items-center rounded-2xl border border-dashed border-[#393442] bg-[#19171f]/90 p-4">
+                <p className="text-sm text-slate-400">
                   {viewState === "loading"
                     ? "Directions will appear here when your route is ready."
                     : "Search for a destination to see step by step directions."}
@@ -180,15 +193,15 @@ export default function NavigatePage() {
             )}
           </div>
 
-          <section className="workspace-popular rounded-2xl border border-slate-200 bg-white p-3 shadow-sm sm:p-4">
+          <section className="workspace-popular rounded-2xl border border-[#393442] bg-[#19171f]/95 p-3 shadow-lg shadow-black/10 sm:p-4">
             <div className="mb-2 flex items-center justify-between gap-3">
-              <p className="text-sm font-semibold text-slate-900">Popular destinations</p>
+              <p className="text-sm font-semibold text-slate-100">Popular destinations</p>
               {locations.length > 4 && (
                 <button
                   type="button"
                   onClick={() => setShowAllLocations((show) => !show)}
                   aria-expanded={showAllLocations}
-                  className="rounded-lg px-2 py-1 text-xs font-semibold text-indigo-700 hover:bg-indigo-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                  className="rounded-lg px-2 py-1 text-xs font-semibold text-indigo-300 transition hover:bg-indigo-400/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400"
                 >
                   {showAllLocations ? "Show popular" : "View all locations"}
                 </button>
@@ -202,7 +215,7 @@ export default function NavigatePage() {
           </section>
         </div>
 
-        <footer className="mt-3 border-t border-slate-200 pt-2 text-center text-xs text-slate-400 lg:hidden">
+        <footer className="mt-3 border-t border-[#393442] pt-2 text-center text-xs text-slate-500 lg:hidden">
           Campus Wayfinder · Distances are approximate
         </footer>
       </div>

@@ -123,47 +123,47 @@ export default function StepList({
             className="relative flex gap-3 pb-4 last:pb-4 sm:gap-4"
           >
             <span className="relative flex w-10 shrink-0 justify-center sm:w-12">
-              <span className="z-10 flex size-10 items-center justify-center rounded-full border-2 border-white bg-indigo-100 text-sm font-bold text-indigo-700 shadow-sm ring-1 ring-indigo-100 sm:size-11 sm:text-base">
+              <span className="z-10 flex size-10 items-center justify-center rounded-full border-2 border-[#19171f] bg-indigo-500/20 text-sm font-bold text-indigo-200 shadow-sm ring-1 ring-indigo-400/30 sm:size-11 sm:text-base">
                 {index + 1}
               </span>
               <span
                 aria-hidden="true"
-                className="absolute bottom-0 top-10 w-0.5 bg-indigo-100 sm:top-11"
+                className="absolute bottom-0 top-10 w-0.5 bg-indigo-400/30 sm:top-11"
               />
             </span>
 
             <article
-              className="direction-card-enter min-w-0 flex-1 rounded-xl border border-slate-200 bg-white p-3.5 shadow-sm sm:p-4"
+              className="direction-card-enter min-w-0 flex-1 rounded-xl border border-[#393442] bg-[#111016] p-3.5 shadow-sm sm:p-4"
               style={arrivalDelay(index)}
             >
               <div className="flex items-start gap-3">
-                <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-700">
+                <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-indigo-500/15 text-indigo-300">
                   <DirectionIcon kind={kind} />
                 </span>
                 <div className="min-w-0 flex-1">
                   <p className="text-xs font-semibold uppercase tracking-wider text-indigo-600">
                     Step {index + 1}
                   </p>
-                  <h4 className="mt-1 text-base font-semibold leading-6 text-slate-900">
+                  <h4 className="mt-1 text-base font-semibold leading-6 text-slate-100">
                     {parts.title}
                   </h4>
                 </div>
                 {distance !== undefined && (
-                  <span className="shrink-0 rounded-lg bg-slate-50 px-2.5 py-1.5 text-sm font-semibold tabular-nums text-slate-700">
+                  <span className="shrink-0 rounded-lg bg-[#24212c] px-2.5 py-1.5 text-sm font-semibold tabular-nums text-slate-200">
                     {distance} m
                   </span>
                 )}
               </div>
               {parts.detail && (
-                <p className="mt-3 pl-0 text-sm leading-6 text-slate-600 sm:pl-[3.25rem]">
+                <p className="mt-3 pl-0 text-sm leading-6 text-slate-400 sm:pl-[3.25rem]">
                   {parts.detail}
                 </p>
               )}
               {from && to && (
-                <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 border-t border-slate-100 pt-3 text-xs text-slate-500 sm:ml-[3.25rem]">
+                <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 border-t border-[#393442] pt-3 text-xs text-slate-500 sm:ml-[3.25rem]">
                   <span>{from.name}</span>
                   <span aria-hidden="true" className="text-indigo-400">→</span>
-                  <span className="font-medium text-slate-700">{to.name}</span>
+                  <span className="font-medium text-slate-300">{to.name}</span>
                 </div>
               )}
             </article>
@@ -173,21 +173,21 @@ export default function StepList({
 
       <li className="relative flex gap-3 sm:gap-4">
         <span className="relative flex w-10 shrink-0 justify-center sm:w-12">
-          <span className="z-10 flex size-10 items-center justify-center rounded-full border-2 border-white bg-rose-100 text-rose-700 shadow-sm ring-1 ring-rose-200 sm:size-11">
+          <span className="z-10 flex size-10 items-center justify-center rounded-full border-2 border-[#19171f] bg-rose-500/15 text-rose-300 shadow-sm ring-1 ring-rose-400/30 sm:size-11">
             <DirectionIcon kind="arrival" />
           </span>
         </span>
         <article
-          className="direction-card-enter min-w-0 flex-1 rounded-xl border border-rose-200 bg-rose-50/70 p-3.5 shadow-sm sm:p-4"
+          className="direction-card-enter min-w-0 flex-1 rounded-xl border border-rose-400/25 bg-[#21171d] p-3.5 shadow-sm sm:p-4"
           style={arrivalDelay(steps.length)}
         >
           <p className="text-xs font-semibold uppercase tracking-wider text-rose-700">
             Step {steps.length + 1} · Arrival
           </p>
-          <h4 className="mt-1 text-base font-semibold leading-6 text-slate-900">
+          <h4 className="mt-1 text-base font-semibold leading-6 text-slate-100">
             You have arrived at {destination.name}
           </h4>
-          <p className="mt-1 text-sm text-slate-600">{destination.name}</p>
+          <p className="mt-1 text-sm text-slate-400">{destination.name}</p>
         </article>
       </li>
     </ol>
