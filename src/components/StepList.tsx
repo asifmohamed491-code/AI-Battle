@@ -141,7 +141,7 @@ export default function StepList({
                   <DirectionIcon kind={kind} />
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-indigo-600">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-indigo-300">
                     Step {index + 1}
                   </p>
                   <h4 className="mt-1 text-base font-semibold leading-6 text-slate-100">
@@ -181,7 +181,7 @@ export default function StepList({
           className="direction-card-enter min-w-0 flex-1 rounded-xl border border-rose-400/25 bg-[#21171d] p-3.5 shadow-sm sm:p-4"
           style={arrivalDelay(steps.length)}
         >
-          <p className="text-xs font-semibold uppercase tracking-wider text-rose-700">
+          <p className="text-xs font-semibold uppercase tracking-wider text-rose-300">
             Step {steps.length + 1} · Arrival
           </p>
           <h4 className="mt-1 text-base font-semibold leading-6 text-slate-100">

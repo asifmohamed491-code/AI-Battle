@@ -68,6 +68,7 @@ select {
 .direction-scroll {
   scrollbar-gutter: stable;
   overscroll-behavior: contain;
+  touch-action: pan-y;
 }
 
 @keyframes direction-card-enter {
@@ -97,7 +98,7 @@ select {
       "directions map"
       "popular map";
     column-gap: 20px;
-    row-gap: 12px;
+    row-gap: 10px;
   }
 
   .workspace-map {
@@ -110,7 +111,38 @@ select {
   }
 
   .workspace-popular {
-    max-height: 142px;
+    max-height: 96px;
+  }
+
+  .search-form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: end;
+    gap: 8px;
+  }
+
+  .search-form > * {
+    margin: 0;
+  }
+
+  .search-title {
+    grid-column: 1 / -1;
+  }
+
+  .search-locations {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .search-natural-query {
+    grid-column: 1;
+  }
+
+  .search-submit {
+    height: 40px;
+    grid-column: 2;
   }
 }
 
@@ -120,7 +152,9 @@ select {
   }
 
   .workspace-directions {
-    min-height: 320px;
+    height: clamp(320px, 55svh, 460px);
+    min-height: 0;
+    overflow: hidden;
   }
 }
 

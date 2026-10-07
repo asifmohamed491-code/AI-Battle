@@ -157,6 +157,19 @@ const roadGeometry: Record<string, string> = {
   "library:seminar-hall": "M 780 565 H 875 V 650 H 980",
 };
 
+const routeDistancePoints: Record<string, Point> = {
+  "ai-lab:cse-block": { x: 610, y: 292 },
+  "administrative-office:cafeteria": { x: 345, y: 515 },
+  "administrative-office:cse-block": { x: 390, y: 390 },
+  "administrative-office:main-gate": { x: 210, y: 428 },
+  "cafeteria:cse-block": { x: 455, y: 490 },
+  "cafeteria:hostel": { x: 640, y: 625 },
+  "cafeteria:library": { x: 640, y: 545 },
+  "auditorium:library": { x: 890, y: 436 },
+  "library:seminar-hall": { x: 875, y: 595 },
+  "computer-lab:cse-block": { x: 650, y: 385 },
+};
+
 function edgeKey(from: string, to: string) {
   return [from, to].sort().join(":");
 }
@@ -526,6 +539,7 @@ export default function CampusMap({
         {paths.map((path) => {
           if (!activeEdges.has(edgeKey(path.from, path.to))) return null;
           const d = edgePath(path.from, path.to);
+          const distancePoint = routeDistancePoints[edgeKey(path.from, path.to)];
           return (
             <g key={`route-${edgeKey(path.from, path.to)}`}>
               <path d={d} fill="none" stroke="#fffdf8" strokeWidth="15" strokeLinecap="round" strokeLinejoin="round" />
@@ -539,6 +553,32 @@ export default function CampusMap({
                 strokeDasharray="2 14"
                 className="campus-route-flow"
               />
+              {distancePoint && (
+                <g
+                  transform={`translate(${distancePoint.x} ${distancePoint.y})`}
+                  aria-label={`${path.distance} meters`}
+                >
+                  <rect
+                    x="-29"
+                    y="-11"
+                    width="58"
+                    height="22"
+                    rx="8"
+                    fill="#fffdf8"
+                    stroke="#cfc9ff"
+                    strokeWidth="1.5"
+                  />
+                  <text
+                    y="4"
+                    textAnchor="middle"
+                    fill="#5144bd"
+                    fontSize="12"
+                    fontWeight="700"
+                  >
+                    {path.distance} m
+                  </text>
+                </g>
+              )}
             </g>
           );
         })}

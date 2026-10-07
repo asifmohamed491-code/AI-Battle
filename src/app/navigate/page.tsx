@@ -23,6 +23,7 @@ export default function NavigatePage() {
   const [paths, setPaths] = useState<CampusPath[]>([]);
   const [source, setSource] = useState("main-gate");
   const [query, setQuery] = useState("");
+  const [selectedDestination, setSelectedDestination] = useState("");
   const [result, setResult] = useState<RouteResult | null>(null);
   const [viewState, setViewState] = useState<ViewState>("idle");
   const [message, setMessage] = useState<string>();
@@ -95,10 +96,24 @@ export default function NavigatePage() {
   }
 
   function search() {
+    if (query.trim()) {
+      void requestRoute("/api/search", { query, defaultSource: source });
+      return;
+    }
+    if (selectedDestination) {
+      void requestRoute("/api/route", { from: source, to: selectedDestination });
+      return;
+    }
     void requestRoute("/api/search", { query, defaultSource: source });
   }
 
+  function changeQuery(value: string) {
+    setQuery(value);
+    setSelectedDestination("");
+  }
+
   function selectLocation(location: CampusLocation) {
+    setSelectedDestination(location.slug);
     setQuery(`Where is the ${location.name}?`);
     void requestRoute("/api/route", { from: source, to: location.slug });
   }
@@ -112,9 +127,8 @@ export default function NavigatePage() {
   ];
   const visibleLocations = showAllLocations ? popularLocations : popularLocations.slice(0, 4);
   const parsedDestinationSlug = parseQuery(query, locations, source).to;
-  const parsedDestination = locations.find(
-    (location) => location.slug === parsedDestinationSlug,
-  );
+  const destinationSlug = parsedDestinationSlug ?? selectedDestination;
+  const parsedDestination = locations.find((location) => location.slug === destinationSlug);
   const visibleState =
     viewState === "success" ? undefined : viewState === "loading" ? "loading" : viewState;
 
@@ -162,9 +176,14 @@ export default function NavigatePage() {
               source={source}
               query={query}
               destination={parsedDestination}
+              destinationSlug={destinationSlug}
               loading={viewState === "loading"}
               onSourceChange={setSource}
-              onQueryChange={setQuery}
+              onDestinationChange={(destination) => {
+                setQuery("");
+                setSelectedDestination(destination);
+              }}
+              onQueryChange={changeQuery}
               onSearch={search}
             />
           </section>
