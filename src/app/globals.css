@@ -66,9 +66,14 @@ select {
 }
 
 .direction-scroll {
-  scrollbar-gutter: stable;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   overscroll-behavior: contain;
   touch-action: pan-y;
+}
+
+.direction-scroll::-webkit-scrollbar {
+  display: none;
 }
 
 @keyframes direction-card-enter {
